@@ -3,6 +3,49 @@ from tkinter import messagebox, Toplevel
 from PIL import Image, ImageTk  # For images
 from datetime import datetime  # For date/time functionality
 
+# Main Window
+root = tk.Tk()
+root.title("Fitness Application")
+root.geometry("600x800")  # Adjust the window size to fit content
+
+# Open image files (paths updated for your system)
+image_path1 = 'C:/Users/dhipo/OneDrive/Software Dev/Myfitness/image1.jpg'
+image_path2 = 'C:/Users/dhipo/OneDrive/Software Dev/Myfitness/image2.jpg'
+
+# Load images using PIL
+image1 = Image.open(image_path1)
+image2 = Image.open(image_path2)
+
+# Reduce image sizes by 50%
+width1, height1 = image1.size
+width2, height2 = image2.size
+
+# Scale the images by 50%
+new_width1 = int(width1 * 0.5)
+new_height1 = int(height1 * 0.5)
+new_width2 = int(width2 * 0.5)
+new_height2 = int(height2 * 0.5)
+
+# Resize images to 50% of the original size
+image1_resized = image1.resize((new_width1, new_height1))
+image2_resized = image2.resize((new_width2, new_height2))
+
+# Convert the resized images for Tkinter
+photo1 = ImageTk.PhotoImage(image1_resized)
+photo2 = ImageTk.PhotoImage(image2_resized)
+
+# Create a frame to hold the images
+frame_images = tk.Frame(root)
+frame_images.pack(pady=10)
+
+# Display Image1
+label_image1 = tk.Label(frame_images, image=photo1)
+label_image1.grid(row=0, column=0, padx=10)
+
+# Display Image2
+label_image2 = tk.Label(frame_images, image=photo2)
+label_image2.grid(row=0, column=1, padx=10)
+
 # Function to validate numeric input
 def is_valid_number(value):
     try:
@@ -57,59 +100,9 @@ def log_exercise():
     entry_exercise.delete(0, tk.END)
     entry_duration.delete(0, tk.END)
 
-# Function to clear fields
-def clear_fields():
-    entry_weight.delete(0, tk.END)
-    entry_feet.delete(0, tk.END)
-    entry_inches.delete(0, tk.END)
-    label_result.config(text="BMI: --")
-    label_category.config(text="Category: --")
-    entry_exercise.delete(0, tk.END)
-    entry_duration.delete(0, tk.END)
-    text_log.delete(1.0, tk.END)
-
-# Function to open fitness tips window
-def open_fitness_tips():
-    top = Toplevel(root)
-    top.title("Fitness Tips")
-    top.geometry("400x400")
-    
-    label_tips = tk.Label(top, text="Fitness Tips", font=("Arial", 18))
-    label_tips.pack(pady=10)
-    
-    tips_text = "1. Stay hydrated.\n2. Exercise regularly.\n3. Eat a balanced diet."
-    label_tip_content = tk.Label(top, text=tips_text, justify="left")
-    label_tip_content.pack(pady=10)
-    
-    button_close = tk.Button(top, text="Close", command=top.destroy)
-    button_close.pack(pady=10)
-
-# Main Window
-root = tk.Tk()
-root.title("Fitness Application")
-root.geometry("500x700")
-
+# Title Label
 label_title = tk.Label(root, text="Fitness Application", font=("Arial", 18))
 label_title.pack(pady=10)
-
-# Load and display images
-try:
-    img1 = Image.open("image1.jpg").resize((100, 100))
-    photo1 = ImageTk.PhotoImage(img1)
-    label_img1 = tk.Label(root, image=photo1, text="Fitness Image 1", compound="top")
-    label_img1.pack()
-except Exception as e:
-    label_img1 = tk.Label(root, text="Image 1 not found", compound="top")
-    label_img1.pack()
-
-try:
-    img2 = Image.open("image2.jpg").resize((100, 100))
-    photo2 = ImageTk.PhotoImage(img2)
-    label_img2 = tk.Label(root, image=photo2, text="Fitness Image 2", compound="top")
-    label_img2.pack()
-except Exception as e:
-    label_img2 = tk.Label(root, text="Image 2 not found", compound="top")
-    label_img2.pack()
 
 # BMI Calculation Section
 frame_bmi = tk.Frame(root)
@@ -138,6 +131,27 @@ label_result.pack(pady=5)
 label_category = tk.Label(root, text="Category: --", font=("Arial", 12))
 label_category.pack(pady=5)
 
+# Exercise Logging Section
+frame_exercise = tk.Frame(root)
+frame_exercise.pack(pady=10)
+
+label_exercise = tk.Label(frame_exercise, text="Exercise:")
+label_exercise.grid(row=0, column=0, padx=5, pady=5)
+entry_exercise = tk.Entry(frame_exercise)
+entry_exercise.grid(row=0, column=1, padx=5, pady=5)
+
+label_duration = tk.Label(frame_exercise, text="Duration (min):")
+label_duration.grid(row=1, column=0, padx=5, pady=5)
+entry_duration = tk.Entry(frame_exercise)
+entry_duration.grid(row=1, column=1, padx=5, pady=5)
+
+button_log = tk.Button(root, text="Log Exercise", command=log_exercise)
+button_log.pack(pady=10)
+
+text_log = tk.Text(root, height=10, width=50)
+text_log.pack(pady=10)
+
+# Exit Button
 button_exit = tk.Button(root, text="Exit", command=root.quit)
 button_exit.pack(pady=10)
 
