@@ -9,10 +9,10 @@ Calculate BMI based on weight and height inputs.
 Log exercise activities along with duration.
 View fitness-related images within the app.
 Features
-✔ BMI Calculation: Users input weight (lbs) and height (ft & inches) to calculate their Body Mass Index (BMI).
-✔ Exercise Logging: Users can enter exercises along with duration to track workouts.
-✔ Image Display: Two fitness-related images are displayed in the interface.
-✔ User-friendly Interface: Designed using Tkinter with a structured layout.
+ BMI Calculation: Users input weight (lbs) and height (ft & inches) to calculate their Body Mass Index (BMI).
+ Exercise Logging: Users can enter exercises along with duration to track workouts.
+ Image Display: Two fitness-related images are displayed in the interface.
+ User-friendly Interface: Designed using Tkinter with a structured layout.
 
 **Installation**
 Prerequisites
